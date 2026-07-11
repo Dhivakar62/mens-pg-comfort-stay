@@ -95,6 +95,40 @@
       position: relative;
     }
 
+    @media (max-width: 768px) {
+      section {
+        padding: 70px 0;
+      }
+    }
+
+    @media (max-width: 576px) {
+      section {
+        padding: 56px 0;
+      }
+    }
+
+    /* Equal-Height Card Grid Fix
+       Bootstrap's .row/.col flex layout stretches each column to match
+       the tallest column, but the .reveal animation wrapper inside each
+       column does not inherit that stretched height by default. This
+       caused Amenities / Proximity / Why Choose Us cards to render at
+       different heights depending on their text length. Forcing the
+       wrapper to fill its column lets the card's own height:100% work
+       as intended, so every card in a row matches the tallest one. */
+    #facilities .row > [class*="col-"],
+    #advantages .row > [class*="col-"],
+    #why-choose-us .row > [class*="col-"] {
+      display: flex;
+    }
+
+    #facilities .row > [class*="col-"] > .reveal,
+    #advantages .row > [class*="col-"] > .reveal,
+    #why-choose-us .row > [class*="col-"] > .reveal {
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+
     /* Glassmorphism Classes */
     .glass-card {
       background: var(--glass-bg);
@@ -311,6 +345,16 @@
       }
     }
 
+    @media (max-width: 375px) {
+      .hero-title {
+        font-size: 1.9rem;
+      }
+      .badge-pill-custom {
+        font-size: 0.75rem;
+        padding: 7px 12px;
+      }
+    }
+
     /* Section Header */
     .section-header {
       margin-bottom: 60px;
@@ -361,7 +405,19 @@
       text-align: center;
       transition: var(--transition-base);
       height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
+    }
+
+    .facility-title {
+      width: 100%;
+    }
+
+    .facility-desc {
+      width: 100%;
     }
 
     .facility-card:hover, .facility-card.touch-hover {
@@ -532,85 +588,26 @@
       background: var(--primary-color);
     }
 
-    .video-placeholder-bg {
-      width: 100%;
-      height: 480px;
-      object-fit: cover;
-      opacity: 0.6;
-    }
-
-    @media (max-width: 768px) {
-      .video-placeholder-bg {
-        height: 280px;
-      }
-    }
-
-    .video-play-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 2;
-    }
-
-    .play-button {
-      width: 80px;
-      height: 80px;
-      background: #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      cursor: pointer;
-      transition: var(--transition-base);
-    }
-
-    .play-button i {
-      font-size: 2rem;
-      color: var(--secondary-color);
-      margin-left: 5px; /* Offset for visual centering */
-      transition: var(--transition-base);
-    }
-
-    .play-button:hover {
-      transform: scale(1.1);
-      background: var(--secondary-color);
-    }
-
-    .play-button:hover i {
-      color: #fff;
-    }
-
-    .pulse-animation {
-      animation: pulsePlay 2s infinite;
-    }
-
-    @keyframes pulsePlay {
-      0% {
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
-      }
-      70% {
-        box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
-      }
-    }
-
     /* Location Advantages Section Styling */
     .advantage-card {
       background: var(--card-bg);
-      border-radius: 18px;
+      border-radius: 16px;
       padding: 30px;
       border: 1px solid #f1f5f9;
       transition: var(--transition-base);
       height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .advantage-card h5 {
+      width: 100%;
+    }
+
+    .advantage-card p {
+      width: 100%;
     }
 
     .advantage-card:hover, .advantage-card.touch-hover {
@@ -643,7 +640,14 @@
       align-items: flex-start;
       gap: 20px;
       height: 100%;
+      width: 100%;
       transition: var(--transition-base);
+    }
+
+    .feature-point-card > div:last-child {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .feature-point-card:hover, .feature-point-card.touch-hover {
@@ -663,68 +667,6 @@
       justify-content: center;
       font-size: 1.25rem;
       flex-shrink: 0;
-    }
-
-    /* Testimonials Section Styling */
-    .testimonial-card {
-      background: var(--card-bg);
-      border-radius: 20px;
-      padding: 40px;
-      border: 1px solid #f1f5f9;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01);
-      position: relative;
-    }
-
-    .testimonial-quote {
-      position: absolute;
-      top: 30px;
-      right: 40px;
-      font-size: 4rem;
-      color: rgba(37, 99, 235, 0.05);
-      font-family: 'Outfit', sans-serif;
-      line-height: 1;
-    }
-
-    .testimonial-stars {
-      color: #fbbf24;
-      margin-bottom: 20px;
-    }
-
-    .testimonial-text {
-      font-size: 1rem;
-      color: var(--text-main);
-      margin-bottom: 30px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .testimonial-user {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .testimonial-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-      background-color: var(--bg-light);
-    }
-
-    .testimonial-username {
-      font-weight: 600;
-      margin-bottom: 2px;
-      color: var(--primary-color);
-    }
-
-    .testimonial-title {
-      font-size: 0.8rem;
-      color: var(--text-muted);
     }
 
     /* Contact Details Cards */
@@ -785,6 +727,26 @@
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
       border: 1px solid #e2e8f0;
+      aspect-ratio: 16 / 7;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+    }
+
+    @media (max-width: 576px) {
+      .map-container {
+        aspect-ratio: 4 / 5;
+      }
+    }
+
+    /* Keyboard Focus States for Interactive Cards */
+    .facility-card:focus-visible,
+    .advantage-card:focus-visible,
+    .feature-point-card:focus-visible {
+      outline: 2px solid var(--secondary-color);
+      outline-offset: 3px;
     }
 
     /* Floating CTA Bar for Mobile / Sticky Buttons */
@@ -826,6 +788,19 @@
       background: #25d366;
     }
 
+    @media (max-width: 375px) {
+      .sticky-cta-container {
+        bottom: 18px;
+        right: 18px;
+        gap: 12px;
+      }
+      .floating-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+      }
+    }
+
     /* Footer Styling */
     footer {
       background-color: var(--primary-color);
@@ -855,6 +830,26 @@
     footer hr {
       border-color: rgba(255, 255, 255, 0.08);
       margin: 40px 0 25px 0;
+    }
+
+    /* Skip to Content (Accessibility) */
+    .skip-to-content {
+      position: fixed;
+      top: -60px;
+      left: 10px;
+      z-index: 2050;
+      background: var(--secondary-color);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: top 0.3s ease;
+    }
+
+    .skip-to-content:focus {
+      top: 10px;
+      color: #fff;
     }
   </style>
 
@@ -901,6 +896,8 @@
 </head>
 <body data-bs-spy="scroll" data-bs-target="#mainNavbar" data-bs-offset="90">
 
+  <a class="visually-hidden-focusable skip-to-content" href="#main-content">Skip to main content</a>
+
   <!-- Header / Navigation Bar -->
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top glass-nav navbar-transparent" id="mainNavbar">
@@ -933,9 +930,6 @@
               <a class="nav-link" href="#why-choose-us">Why Us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#testimonials">Reviews</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="#contact">Contact</a>
             </li>
           </ul>
@@ -944,7 +938,7 @@
     </nav>
   </header>
 
-  <main>
+  <main id="main-content">
     
     <!-- Hero Section -->
     <section id="home">
@@ -1026,7 +1020,7 @@
             <div class="reveal reveal-fade-right">
               <div class="about-img-wrapper">
                 <!-- Using one of the beautiful interior room pictures for the about section -->
-                <img src="img/images/common-area-study-desk.jpeg" alt="The Comfort Stay Study Desk Room" class="img-fluid w-100">
+                <img src="img/images/common-area-study-desk.jpeg" alt="The Comfort Stay Study Desk Room" class="img-fluid w-100" loading="lazy">
                 <div class="about-badge d-flex align-items-center gap-3">
                   <span class="fs-1 fw-bold text-accent-color">100%</span>
                   <div class="text-start">
@@ -1698,7 +1692,6 @@
                 <iframe 
                   src="https://maps.google.com/maps?q=11.0952416,76.9936319&t=&z=16&ie=UTF8&iwloc=&output=embed" 
                   width="100%" 
-                  height="450" 
                   style="border:0; display: block;" 
                   allowfullscreen="" 
                   loading="lazy" 
