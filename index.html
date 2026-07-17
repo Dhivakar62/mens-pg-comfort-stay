@@ -266,8 +266,10 @@
     }
 
     /* Navbar Custom Styles */
-    .navbar {
-      height: var(--nav-height);
+    @media (min-width: 992px) {
+      .navbar {
+        height: var(--nav-height);
+      }
     }
 
     .navbar-brand {
@@ -288,6 +290,32 @@
     .navbar-nav .nav-link:hover, 
     .navbar-nav .nav-link.active {
       color: var(--accent-color) !important;
+    }
+
+    /* Mobile Dropdown Menu Background
+       The fixed-height nav bar doesn't grow when the hamburger menu
+       expands, so the dropdown needs its own solid background panel
+       rather than relying on the parent navbar's clipped background. */
+    @media (max-width: 991.98px) {
+      .navbar-collapse {
+        background: rgba(11, 19, 41, 0.98);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        margin-top: 12px;
+        padding: 18px 20px 22px 20px;
+        border-radius: 16px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .navbar-nav .nav-link {
+        padding: 0.65rem 0.5rem !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .navbar-nav .nav-item:last-child .nav-link {
+        border-bottom: none;
+      }
     }
 
     /* Hero Section Styling */
