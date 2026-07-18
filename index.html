@@ -937,7 +937,7 @@
     }
   </script>
 </head>
-<body data-bs-spy="scroll" data-bs-target="#mainNavbar" data-bs-offset="90">
+<body>
 
   <a class="visually-hidden-focusable skip-to-content" href="#main-content">Skip to main content</a>
 
@@ -1634,16 +1634,6 @@
                       <p class="text-white fw-semibold mb-0">+91 99948 80181</p>
                     </div>
                   </div>
-
-                  <div class="contact-info-item">
-                    <div class="contact-info-icon">
-                      <i class="bi bi-envelope-fill"></i>
-                    </div>
-                    <div>
-                      <h6 class="text-white-50 mb-1">Email Support</h6>
-                      <p class="text-white fw-semibold mb-0">enquiry@thecomfortstay.com</p>
-                    </div>
-                  </div>
                 </div>
                 
                 <div class="mt-4 pt-3">
@@ -1808,7 +1798,6 @@
         <div class="col-lg-4 col-md-6 col-sm-12">
           <h5 class="text-white">Contact & Location</h5>
           <p class="text-white-50 small mb-2"><i class="bi bi-geo-alt-fill text-accent-color me-2"></i> Keeranatham Road, Saravanampatti, Coimbatore, India - 641035</p>
-          <p class="text-white-50 small mb-2"><i class="bi bi-envelope-fill text-accent-color me-2"></i> info@thecomfortstay.com</p>
           <p class="text-white-50 small mb-0"><i class="bi bi-telephone-fill text-accent-color me-2"></i> +91 63799 58294 / 99948 80181</p>
         </div>
       </div>
@@ -1866,6 +1855,43 @@
 
       // Enable CSS :active touch feedback instantly on iOS and mobile browsers
       document.body.addEventListener('touchstart', function() {}, {passive: true});
+
+      // Nav Active Link Management
+      // Replaces Bootstrap Scrollspy with explicit control so exactly one
+      // nav-link is ever marked active - fixes "Home" staying highlighted
+      // regardless of scroll position or which link was clicked.
+      const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+      function setActiveLink(targetHref) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === targetHref);
+        });
+      }
+
+      // Instant feedback on click/tap - the clicked link becomes active right away.
+      // Note: this does NOT close the mobile dropdown menu (no collapse.hide()
+      // is called), so the menu stays open after selecting a link, as intended.
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          setActiveLink(this.getAttribute('href'));
+        });
+      });
+
+      // Keep the active link in sync with scroll position for section navigation
+      const sectionIds = ['home', 'about', 'facilities', 'gallery', 'advantages', 'why-choose-us', 'contact'];
+      const sections = sectionIds
+        .map(id => document.getElementById(id))
+        .filter(Boolean);
+
+      const navObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveLink('#' + entry.target.id);
+          }
+        });
+      }, { root: null, rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+      sections.forEach(section => navObserver.observe(section));
 
       // Toggle hover classes on click/tap for mobile view interactive cards
       const interactiveCards = document.querySelectorAll('.facility-card, .advantage-card, .feature-point-card');
